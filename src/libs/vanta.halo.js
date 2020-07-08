@@ -6,17 +6,17 @@ let THREE = win && window.THREE
 class Halo extends ShaderBase {
   getDefaultOptions() {
     return {
-      baseColor: 0xffc2c2,
-      color2: 0x182130,
+      baseColor: 0xffffff,
+      color2: 0xffffff,
       backgroundColor: 0x182130,
-      amplitudeFactor: 1,
-      ringFactor: 1.0,
-      rotationFactor: 0,
+      amplitudeFactor: 0.5,
+      ringFactor: 0,
+      rotationFactor: 1,
       xOffset: 0,
       yOffset: 0,
-      size: 2.0,
-      speed: 2,
-      mouseEase: false,
+      size: 1.75,
+      speed: 3,
+      mouseEase: true,
       // scaleMobile: window.devicePixelRatio,
       // scale: window.devicePixelRatio,
       scaleMobile: 1,
@@ -276,8 +276,8 @@ void main() {
     - backgroundColor;
 
 
-  // mixedColor *= .875;
-  float fadeAmt = 0.0015; // fade this amount each frame // 0.002
+  // mixedColor *= .1;
+  float fadeAmt = 0.0085; // fade this amount each frame // 0.002
   mixedColor = (mixedColor - fadeAmt) * .995;
 
   // float nn = snoise(uvBig * 10.) * 20.;
@@ -300,13 +300,13 @@ void main() {
   // vec4 rainbow = abs( abs( .95*mod(iTime * 1., 2. * PI) - vec4(0,2,4,0) ) -3. )-1.;
   // vec4 rainbow = vec4(0,2,4,0);
 
-  float colorChangeSpeed = 0.75 + 0.05 * sin(iTime) * 1.5;
+  float colorChangeSpeed = 0.9 + 0.05 * sin(iTime) * 1.5;
   float rainbowInput = timeFrac * colorChangeSpeed;
   // NOISE!
   // float nn = snoise(uv * 0.25 + iTime * 0.005 + mixedColor.b * 0.01) * 20.;
   // rainbowInput += nn;
 
-  float brightness = 0.7;
+  float brightness = 0.1;
   vec4 rainbow = sqrt(j2hue(cos(rainbowInput))) + vec4(baseColor,0) - 1.0 + brightness;
   float factor = smoothstep(1., .9, edge) * pow(edge, 2.);
   vec3 color = rainbow.rgb * smoothstep(1., .9, edge) * pow(edge, 20.);
