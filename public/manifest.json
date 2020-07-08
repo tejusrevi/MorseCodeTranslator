@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Morse Code Translator",
+  "name": "Morse Code Translator",
   "icons": [
     {
       "src": "favicon.ico",

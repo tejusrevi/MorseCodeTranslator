@@ -1,25 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
+import HALO from './libs/vanta.halo'
 import './App.css';
 
+window.onload = e =>{
+  var vantaEffect = HALO({
+    el: "#main-container"
+  })
+}
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="main-container">
+      <div id="text-container">
+        <textarea id="text-input" spellCheck="false"/>
+          <div id="button-container">
+            <button className="btn" id="submit-button"></button>
+            <button className="btn" id="reset-button"></button>
+          </div>
+      </div>
+      <div id="footer">
+        Background is Halo from <a href="https://www.vantajs.com/?effect=halo">Vanta.js</a>
+      </div>
     </div>
+    
+    
   );
 }
 
