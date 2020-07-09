@@ -11,18 +11,20 @@ var time;
 window.onload = e =>{
   vantaEffect = HALO({
     el: "#main-container",
-    mouseControls: true,
+    mouseControls: false,
     touchControls: false,
   })
 }
 
 var Error = <div id="error-msg"></div>
 function App() {
-  const [input,setInput] = useState("");
-  const [timeUnit,setTimeUnit] = useState(0.5);
+  const [input,setInput] = useState("AC");
+  const [timeUnit,setTimeUnit] = useState(2);
   function handleSubmit(e){
-    ReactDOM.render(<CharacterBox text={input}/>,document.getElementById("character-container"));
+    if (document.getElementById("character") !== null) ReactDOM.unmountComponentAtNode(document.getElementById("character-container"))
+    ReactDOM.render(<CharacterBox text={input} timeUnit={timeUnit} playFunc={play}/>,document.getElementById("character-container"));
     document.getElementById("character-container").classList.add("rendered")
+    document.getElementById("text-container").style.marginBottom = "10px";
   }
 
   function handleReset(e){
@@ -58,7 +60,7 @@ function App() {
         amplitudeFactor: 5.00,
         size: 2.1,
       })
-    }else if(time === timeUnit*10){
+    }else if(time === timeUnit){
       vantaEffect.setOptions({
         baseColor: 0xf2f2f2,
         amplitudeFactor: 0.5,
@@ -80,9 +82,9 @@ function App() {
             <button className="btn" id="submit-button" onClick={handleSubmit.bind(this)}></button>
             <button className="btn" id="reset-button" onClick={handleReset.bind(this)}></button>
           </div>
-          <div id="character-container">
+          
       </div>
-      
+      <div id="character-container">
       </div>
       <div id="footer">
         <code><a target="_blank" href="https://github.com/tejusrevi/MorseCodeTranslator">View project on my Github ♥</a></code>

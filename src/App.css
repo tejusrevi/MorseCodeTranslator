@@ -67,17 +67,93 @@ html,body{
 }
 #character-container.rendered{
   margin: auto;
-  margin-top: 0px;
+  margin-top: 10px;
   transition: 1s;
   display: flex;
   flex-direction: column;
   align-content: center;
 }
-#character{
-  background-color: red;
-  height:30vh;
-  margin: auto;
+#character-box{
+  opacity: 0.95;
+  min-height: 20vh;
+  height: 20vw;
+  border-radius: 10px;
+  background-color: #121a25;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  padding: 10px;
 }
+#character{
+  font-family: 'Teko';
+  text-align: center;
+  font-size: 4em;
+  border-radius: 12px;
+  padding: 10px;
+  min-height : 12vh;
+  background-color: #132030;
+}
+#character-box-map{
+  margin: auto;
+  min-height : 4vh;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 3px;
+}
+.character-box-symbols{
+  width: fit-content;
+  min-width: 1px;
+  min-height: 10px;
+}
+#zero-character{
+  margin: 3px;
+  padding: 3px;
+  min-height: 4px;
+  background-color: white;
+  width: 4px;
+  border-radius: 12px;
+  min-width: 2px;
+}
+#one-character{
+  margin: 3px;
+  padding: 3px;
+  min-height: 4px;
+  background-color: white;
+  width: 14px;
+  border-radius: 12px;
+  min-width: 5px;
+}
+@media screen and (max-width : 4000px){
+  #character-container.rendered{
+    min-width: 17%;
+    height: 15vw;
+  }
+}
+@media screen and (max-width : 1200px){
+  #character-container.rendered{
+    min-width: 20%;
+  }
+}
+
+@media screen and (max-width : 800px){
+  #character-container.rendered{
+    min-width: 25%;
+  }
+}
+@media screen and (max-width : 600px){
+  #character-container.rendered{
+    min-width: 40%;
+  }
+}
+@media screen and (max-width : 400px){
+  #character-container{
+    min-width: 50%;
+  }
+}
+
 @keyframes growwidth{
   0%{
     opacity: 0;
@@ -108,7 +184,6 @@ html,body{
   background-color: #132030;
   outline: none;
   padding: 3vw;
-  overflow: auto;
   max-height: 150px;
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
