@@ -56,6 +56,7 @@ html,body{
 #text-container{
   opacity: 0.95;
   margin: auto;
+  margin-bottom: 3vw;
   animation: growwidth both 1.3s ;
   border-radius: 10px;
   background-color: #121a25;
@@ -65,18 +66,19 @@ html,body{
   align-content: center;
   padding: 10px;
 }
-#character-container.rendered{
+#character-container{
   margin: auto;
   margin-top: 10px;
   transition: 1s;
   display: flex;
   flex-direction: column;
   align-content: center;
+  
 }
 #character-box{
-  opacity: 0.95;
-  min-height: 20vh;
-  height: 20vw;
+  opacity: 0.8;
+  animation-delay: 10s;
+  animation: growheight 1.5s both;
   border-radius: 10px;
   background-color: #121a25;
   color: white;
@@ -84,6 +86,26 @@ html,body{
   flex-direction: column;
   align-content: center;
   padding: 10px;
+}
+@keyframes growheight{
+  0%{
+    min-height: 0vh;
+    height: 0vw;
+    filter: blur(1.5rem);
+  }50%{
+    filter: blur(6rem);
+  }100%{
+    min-height: 20vh;
+    height: 20vw;
+    filter: blur(0rem);
+  }
+}
+@keyframes blurin{
+  from{
+    filter: blur(1.5rem);
+  }to{
+    filter: blur(0rem);
+  }
 }
 #character{
   font-family: 'Teko';
@@ -127,24 +149,24 @@ html,body{
   min-width: 5px;
 }
 @media screen and (max-width : 4000px){
-  #character-container.rendered{
+  #character-container{
     min-width: 17%;
     height: 15vw;
   }
 }
 @media screen and (max-width : 1200px){
-  #character-container.rendered{
+  #character-container{
     min-width: 20%;
   }
 }
 
 @media screen and (max-width : 800px){
-  #character-container.rendered{
+  #character-container{
     min-width: 25%;
   }
 }
 @media screen and (max-width : 600px){
-  #character-container.rendered{
+  #character-container{
     min-width: 40%;
   }
 }

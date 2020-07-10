@@ -1,74 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom'
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import {map} from './mappingsITU';
-var interval;
-var readyInterval;
 
+var currentChar;
 var audio = document.getElementById("audio");
-
 function CharacterBox(props){
-    var  index = 0;
-    var trueonce = true;
-    var count;
-    console.log("index"+index)
-    const text = props.text;
-    const timeUnit = props.timeUnit;
-
-    audio.addEventListener("timeupdate", function() {
-        console.log(audio.currentTime)
-        if (audio.currentTime > (props.timeUnit)/50) {
-            audio.pause();
-            audio.currentTime = 0;
+    useEffect(()=>{
+        if (props.mapping == undefined) return;
+        currentChar = Object.keys(map).find(key => map[key] === props.mapping)
+        document.getElementById("character").innerHTML = currentChar;
+        for(var i = 0;i < 6;i++){
+            if (props.mapping[i] == 0){
+                //console.log("zero-play" + currentChar)
+                ReactDOM.render(<div id="zero-character"></div>,document.getElementById("character-box-map").childNodes[i])
+            }
+            else if (props.mapping[i] == 1){
+                //console.log("one-play" + currentChar)
+                ReactDOM.render(<div id="one-character"></div>,document.getElementById("character-box-map").childNodes[i])
+                //props.playFunc() /////////////
+            }else {
+                ReactDOM.unmountComponentAtNode(document.getElementById("character-box-map").childNodes[i])
+            }
         }
-        })
-
-    function processChars(){
-        count++;
-        console.log(count)
-        document.getElementById("character").innerHTML = text.charAt(index);
-        var charMap = map[text.charAt(index)];
-        if(Object.keys(map).includes(text.charAt(index))) {
-            setTimeout( ()=>{
-                for(var i = 0;i < charMap.length;i++){
-                    if (charMap[i] == 0){
-                        console.log("zero-play")
-                        ReactDOM.render(<div id="zero-character"></div>,document.getElementById("character-box-map").childNodes[i])
-                        audio.play()
-                        
-                    }
-                    else {
-                        ReactDOM.render(<div id="one-character"></div>,document.getElementById("character-box-map").childNodes[i])
-                        props.playFunc()
-                    }
-                }
-            },300)
-        }else{
-            document.getElementById("character-box-map").childNodes.forEach(e=>{
-                ReactDOM.unmountComponentAtNode(e)
-            })
-            
-        }
-        
-        index++;
-        if (index == text.length) {
-            clearInterval(interval);
-            interval = null;
-        }
-    }
-
-
-    function ready(){
-        if(document.getElementById("character") != null && interval == null){
-            count = 0;
-            interval = setInterval(processChars,props.timeUnit*1000);
-            clearInterval(readyInterval)
-        }
-    }
-    if(trueonce){
-        readyInterval = setInterval(ready,100);
-        trueonce = false;
-    }
-    
+    })
     return(
         <div id="character-box">
             <div id="character">
