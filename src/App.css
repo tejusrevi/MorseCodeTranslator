@@ -5,6 +5,7 @@ html,body{
   background-color: #182130;
   overflow-x: hidden;
 }
+
 #root{
   min-height: 100%
 }
@@ -189,6 +190,14 @@ html,body{
     width: 80%;
     filter: blur(0rem);
   }
+}
+
+#character-bar{
+  min-height: fit-content;
+  padding: 10px;
+  margin: 30px;
+  background-color: #132030;
+  border-radius: 7px;
 }
 #text-input{
   

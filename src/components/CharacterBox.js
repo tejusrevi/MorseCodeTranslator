@@ -3,18 +3,17 @@ import ReactDOM from 'react-dom';
 import {map} from './mappingsITU';
 
 var currentChar;
-var audio = document.getElementById("audio");
 function CharacterBox(props){
     useEffect(()=>{
         if (props.mapping == undefined) return;
         currentChar = Object.keys(map).find(key => map[key] === props.mapping)
         document.getElementById("character").innerHTML = currentChar;
         for(var i = 0;i < 6;i++){
-            if (props.mapping[i] == 0){
+            if (props.mapping[i] === 0){
                 //console.log("zero-play" + currentChar)
                 ReactDOM.render(<div id="zero-character"></div>,document.getElementById("character-box-map").childNodes[i])
             }
-            else if (props.mapping[i] == 1){
+            else if (props.mapping[i] === 1){
                 //console.log("one-play" + currentChar)
                 ReactDOM.render(<div id="one-character"></div>,document.getElementById("character-box-map").childNodes[i])
                 //props.playFunc() /////////////

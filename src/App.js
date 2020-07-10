@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import HALO from './libs/vanta.halo'
 import {CharacterBox} from './components/CharacterBox'
 import {map} from './components/mappingsITU';
+import {CharacterBar} from './components/CharacterBar'
 import './App.css';
 
 var vantaEffect;
@@ -11,7 +12,8 @@ var time;
 var index;
 
 var count = 0;
-var characterTimeout;
+var symbolCount = 0;
+var audio = document.getElementById("audio");
 window.onload = e =>{
   vantaEffect = HALO({
     el: "#main-container",
@@ -22,8 +24,8 @@ window.onload = e =>{
 
 var Error = <div id="error-msg"></div>
 function App() {
-  const [input,setInput] = useState("T1T1T1T1T1T1");
-  const [timeUnit,setTimeUnit] = useState(1);
+  const [input,setInput] = useState("HI");
+  const [timeUnit,setTimeUnit] = useState(0.5);
   const [currentMapping,setCurrentMapping] = useState(map[input[0]]);
 
   function handleSubmit(e){
@@ -31,12 +33,33 @@ function App() {
     count = 0;
     nextChar();
   }
+
   function nextChar(){
+    if (index == input.length) return;
+
     console.log("index  :"+index)
     setCurrentMapping(map[input.charAt(index)]);
+    console.log(map[input.charAt(index)])
+    processChar(map[input.charAt(index)])
+    var duration = 0;
+    map[input.charAt(index++)].forEach((e)=>{
+      if (e === 1) duration+=3;
+      else if(e === 0) duration++;
+    })
+    console.log(duration)
     if (index == input.length) return;
-    setTimeout(nextChar,map[input.charAt(index++)].length*timeUnit*1000)  //needs fix
+    setTimeout(nextChar,(duration+map[input.charAt(index)].length)*timeUnit*1000)  //needs fix
   }
+
+  function processChar(arr){
+    if (arr.length == symbolCount) return;
+    setTimeout(()=>{
+      console.log("char process")
+      symbolCount++;
+      processChar(arr)
+    },500)
+  }
+
   function handleReset(e){
     e.preventDefault();
     if (document.getElementById("error-msg") !== null) ReactDOM.unmountComponentAtNode(document.getElementById("error-container"))
@@ -89,6 +112,9 @@ function App() {
       <div id="text-container">
       <textarea id="text-input" spellCheck="false" value={input} onChange={controlledInput.bind(this)}/>
       <div id="error-container"></div>
+      <div id="character-bar">
+        <CharacterBar text={input}/>
+      </div>
           <div id="button-container">
             <button className="btn" id="submit-button" onClick={handleSubmit.bind(this)}></button>
             <button className="btn" id="reset-button" onClick={handleReset.bind(this)}></button>
