@@ -194,10 +194,38 @@ html,body{
 
 #character-bar{
   min-height: fit-content;
-  padding: 10px;
   margin: 30px;
+  margin-top: 10px;
   background-color: #132030;
   border-radius: 7px;
+}
+
+#copy-button{
+  padding: 10px;
+  border-radius: 7px;
+  background-color: #304664;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+#copy-button:hover{
+  transform: scale(0.9);
+  transition: 0.5s;
+}
+#character-bar-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#character-box-area{
+  text-align: center;
+  padding: 10px;
+}
+
+#character-box-area:empty{
+  padding: 0px;
 }
 #text-input{
   

@@ -10,10 +10,15 @@ var vantaEffect;
 var interval;
 var time;
 var index;
+var duration;
 
 var count = 0;
 var symbolCount = 0;
-var audio = document.getElementById("audio");
+var symbolDuration;
+var audio0 = document.getElementById("audio0");
+var audio1 = document.getElementById("audio1");
+
+var arr;
 window.onload = e =>{
   vantaEffect = HALO({
     el: "#main-container",
@@ -25,41 +30,66 @@ window.onload = e =>{
 var Error = <div id="error-msg"></div>
 function App() {
   const [input,setInput] = useState("HI");
-  const [timeUnit,setTimeUnit] = useState(0.5);
+  const [timeUnit,setTimeUnit] = useState(0.1);
   const [currentMapping,setCurrentMapping] = useState(map[input[0]]);
+
+  arr =[];
+  getMorseCode(arr)
 
   function handleSubmit(e){
     index = 0;
     count = 0;
+    symbolCount = 0;
     nextChar();
+    playSound();
   }
 
   function nextChar(){
-    if (index == input.length) return;
-
-    console.log("index  :"+index)
     setCurrentMapping(map[input.charAt(index)]);
-    console.log(map[input.charAt(index)])
-    processChar(map[input.charAt(index)])
-    var duration = 0;
+    duration = 0;
     map[input.charAt(index++)].forEach((e)=>{
       if (e === 1) duration+=3;
       else if(e === 0) duration++;
+      else if (e === "" ) duration+=7;
     })
     console.log(duration)
     if (index == input.length) return;
-    setTimeout(nextChar,(duration+map[input.charAt(index)].length)*timeUnit*1000)  //needs fix
+    setTimeout(nextChar,(duration + map[input.charAt(index)].length+1)*timeUnit*1000)  //needs fix
   }
 
-  function processChar(arr){
-    if (arr.length == symbolCount) return;
-    setTimeout(()=>{
-      console.log("char process")
-      symbolCount++;
-      processChar(arr)
-    },500)
-  }
+  function getMorseCode(arr){
+    input.split("").forEach(e => {
+        map[e].forEach(f=>{
+            if (f === 0){
+                arr.push("•")
+            }else if (f ===1){
+                arr.push("-")
+            }else if (f === ""){
+                arr.push(" / ")
+            }
+        })
+        arr.push(" ")
+    });
+}
 
+  function playSound(){
+    symbolDuration = 0;
+    if(arr[symbolCount] === "•"){
+      symbolDuration++;
+      audio0.play()
+    }else if(arr[symbolCount] === "-"){
+      symbolDuration+=3;
+      audio1.play()
+    }else if(arr[symbolCount] === " / "){
+      symbolDuration+=7;
+    }
+    
+    if (symbolCount === arr.length){
+      return;
+    }
+    symbolCount++;
+    setTimeout(()=>{playSound()},(symbolDuration+1)*timeUnit*1000);
+  }
   function handleReset(e){
     e.preventDefault();
     if (document.getElementById("error-msg") !== null) ReactDOM.unmountComponentAtNode(document.getElementById("error-container"))
@@ -67,13 +97,14 @@ function App() {
   }
 
   function controlledInput(e){
+    ReactDOM.unmountComponentAtNode(document.getElementById("error-container"))
     e.preventDefault();
     if((/[^\w|\s|&|'|@|\)|\(|:|,|=|!|.|\-|+|"|?|/]/).test(e.target.value)) {
       ReactDOM.render(Error,document.getElementById("error-container"))
       document.getElementById("error-msg").innerHTML = "Illegal character "+ (e.target.value).charAt((e.target.value).length-1) +" detected and auto omitted"
     }else{
       play()
-      setInput((e.target.value).toUpperCase())
+      setInput((e.target.value.replace('\n','')).toUpperCase())
       setCurrentMapping(map[(e.target.value).toUpperCase().charAt(0)])
     }
     
@@ -113,7 +144,7 @@ function App() {
       <textarea id="text-input" spellCheck="false" value={input} onChange={controlledInput.bind(this)}/>
       <div id="error-container"></div>
       <div id="character-bar">
-        <CharacterBar text={input}/>
+        <CharacterBar text={input} getMorseCode={getMorseCode}/>
       </div>
           <div id="button-container">
             <button className="btn" id="submit-button" onClick={handleSubmit.bind(this)}></button>

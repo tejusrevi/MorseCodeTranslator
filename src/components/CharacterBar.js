@@ -3,33 +3,33 @@ import ReactDOM from 'react-dom';
 import {map} from './mappingsITU';
 
 var arr;
+
 function CharacterBar(props){
     arr = [];
     var input = props.text;
-    function getMorseCode(){
-        input.split("").forEach(e => {
-            map[e].forEach(f=>{
-                console.log(f)
-                if (f === 0){
-                    arr.push("•")
-                }else if (f ===1){
-                    arr.push("-")
-                }else if (f === ""){
-                    arr.push(" / ")
-                }
-            })
-            arr.push(" ")
-            
-            console.log(arr)
-        });
-    }
-    getMorseCode()
+    
+    props.getMorseCode(arr)
 
     useEffect(()=>{
         document.getElementById('character-box-area').innerHTML = arr.join("")
     })
+    function copyCode(){
+        document.getElementById('copy-button').innerHTML = "COPIED!";
+        setTimeout(()=>{
+            document.getElementById('copy-button').innerHTML = "COPY"},3000)
+        const selection = window.getSelection();
+        const range = document.createRange();
+        range.selectNodeContents(document.getElementById('character-box-area'));
+        selection.removeAllRanges();
+        selection.addRange(range);
+        document.execCommand('copy');
+        selection.removeAllRanges();
+    }
     return(
-        <div id="character-box-area">
+        <div id="character-bar-row">
+            <div id="character-box-area">
+            </div>
+            <button id="copy-button" onClick={copyCode}>COPY</button>
         </div>
     )
 }
