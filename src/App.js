@@ -84,7 +84,7 @@ function App() {
       symbolDuration+=7;
     }
     
-    if (symbolCount === arr.length){
+    if (symbolCount === arr.length ){
       return;
     }
     symbolCount++;
