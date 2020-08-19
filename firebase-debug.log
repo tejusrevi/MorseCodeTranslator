@@ -1,0 +1,25 @@
+[debug] [2020-08-18T16:39:06.417Z] ----------------------------------------------------------------------
+[debug] [2020-08-18T16:39:06.419Z] Command:       D:\Programs\nodejs\node.exe C:\Users\tejus\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2020-08-18T16:39:06.420Z] CLI Version:   8.7.0
+[debug] [2020-08-18T16:39:06.420Z] Platform:      win32
+[debug] [2020-08-18T16:39:06.420Z] Node Version:  v14.8.0
+[debug] [2020-08-18T16:39:06.421Z] Time:          Tue Aug 18 2020 12:39:06 GMT-0400 (Eastern Daylight Time)
+[debug] [2020-08-18T16:39:06.421Z] ----------------------------------------------------------------------
+[debug] [2020-08-18T16:39:06.421Z] 
+[debug] [2020-08-18T16:39:06.436Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-08-18T16:39:06.437Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\Code\React\morse-code-translator
+
+Before we get started, keep in mind:
+
+  * You are initializing in an existing Firebase project directory
+

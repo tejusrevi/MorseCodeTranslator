@@ -25,6 +25,14 @@ window.onload = e =>{
     mouseControls: false,
     touchControls: false,
   })
+
+
+  document.getElementById('text-input').addEventListener("keyup", function(event) {
+    if (event.keyCode === 13) {
+      event.preventDefault();
+      document.getElementById("submit-button").click();
+    }
+  });
 }
 
 var Error = <div id="error-msg"></div>
@@ -50,11 +58,11 @@ function App() {
     map[input.charAt(index++)].forEach((e)=>{
       if (e === 1) duration+=3;
       else if(e === 0) duration++;
-      else if (e === "" ) duration+=7;
+      else if (e === "" ) duration+=4; //7 minus default pause of 3 units
     })
     console.log(duration)
     if (index == input.length) return;
-    setTimeout(nextChar,(duration + map[input.charAt(index)].length+1)*timeUnit*1000)  //needs fix
+    setTimeout(nextChar,(duration + map[input.charAt(index)].length+3)*timeUnit*1000)  //needs fix
   }
 
   function getMorseCode(arr){
@@ -74,21 +82,30 @@ function App() {
 
   function playSound(){
     symbolDuration = 0;
+    audio0.pause();
+    audio1.pause();
+    audio0.currentTime = 0;
+    audio1.currentTime = 0;
+    
     if(arr[symbolCount] === "•"){
       symbolDuration++;
       audio0.play()
+      play()
     }else if(arr[symbolCount] === "-"){
       symbolDuration+=3;
       audio1.play()
+      
     }else if(arr[symbolCount] === " / "){
-      symbolDuration+=7;
+      symbolDuration+=6;  //7 minus default pause of 1 unit
+    }else if (arr[symbolCount] === " "){
+      symbolDuration+=2; //3 minus default pause of 1 unit
     }
     
     if (symbolCount === arr.length ){
       return;
     }
     symbolCount++;
-    setTimeout(()=>{playSound()},(symbolDuration+1)*timeUnit*1000);
+    setTimeout(()=>{playSound()},(symbolDuration + 1)*timeUnit*1000);
   }
   function handleReset(e){
     e.preventDefault();
@@ -138,8 +155,10 @@ function App() {
     
   }
 
+
   return (
     <div id="main-container">
+      <div id="header">MORSE CODE TRANSLATOR</div>
       <div id="text-container">
       <textarea id="text-input" spellCheck="false" value={input} onChange={controlledInput.bind(this)}/>
       <div id="error-container"></div>

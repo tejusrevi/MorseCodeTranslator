@@ -9,11 +9,22 @@ html,body{
 #root{
   min-height: 100%
 }
+#header{
+  font-family: 'Teko';
+  font-size: 2.5rem;
+  color: white;
+  text-align: center;
+  margin: auto;
+  margin-bottom: 0px;
+  user-select: none;
+  animation: blurin 2s;
+}
 
 #main-container{
   transition: 1s;
   min-height: 100vh;
   display: flex;
+  margin: auto;
   flex-direction: column;
   align-content: center;
 }
@@ -151,8 +162,8 @@ html,body{
 }
 @media screen and (max-width : 4000px){
   #character-container{
-    min-width: 17%;
-    height: 15vw;
+    min-width: 14%;
+    height: 15vh;
   }
 }
 @media screen and (max-width : 1200px){
@@ -193,8 +204,9 @@ html,body{
 }
 
 #character-bar{
+  min-width: 88%;
   min-height: fit-content;
-  margin: 30px;
+  margin: auto;
   margin-top: 10px;
   background-color: #132030;
   border-radius: 7px;
@@ -231,7 +243,8 @@ html,body{
   
   color: white;
   text-align: center;
-  font-family: 'Roboto';
+  font-family: 'Teko';
+  letter-spacing: 2px;
   text-transform: uppercase;
   word-spacing: 1vw;
   margin: auto;
@@ -249,17 +262,17 @@ html,body{
 }
 @media screen and (min-width : 500px){
   #text-input{
-    font-size:14px;
+    font-size:24px;
   }
 }
 @media screen and (min-width : 800px){
   #text-input{
-    font-size:22px;
+    font-size:32px;
   }
 }
 @media screen and (min-width : 1204px){
   #text-input{
-    font-size:26px;
+    font-size:36px;
   }
 }
 
